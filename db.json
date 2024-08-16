@@ -1,0 +1,25 @@
+{
+  "trackit": [
+    {
+      "id": 1,
+      "name": "Silvanos",
+      "email": "ericoderito@gmail.com",
+      "password": "superuser",
+      "balance": 999,
+      "expenses": [
+        {
+          "name": "",
+          "amount": 23
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "email": "admin@tracit.com",
+      "password": "admin",
+      "balance": 0,
+      "expenses": [],
+      "id": 2
+    }
+  ]
+}

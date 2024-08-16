@@ -1,8 +1,22 @@
+import { useState } from "react";
+
 import { Button, Form } from "../components";
 
 const Login = () => {
+  const [formData, setFormData] = useState({});
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(formData);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((formData) => ({
+      ...formData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -15,11 +29,21 @@ const Login = () => {
         >
           <Form.Group>
             <Form.Label>Email</Form.Label>
-            <Form.Control required type="text" placeholder="email" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="email"
+              onChange={handleChange}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control required type="password" placeholder="password" />
+            <Form.Control
+              required
+              type="password"
+              placeholder="password"
+              onChange={handleChange}
+            />
           </Form.Group>
           <Button type="submit" variant="dark" className="w-100">
             Sign In

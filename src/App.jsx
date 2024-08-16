@@ -1,11 +1,35 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Button, Container, Nav, Navbar } from "./components";
 
 const App = () => {
+  const [users, setUsers] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/trackit")
+      .then((res) => res.json())
+      .then(setUsers);
+  }, []);
   const logout = () => {
     console.log("logout");
+  };
+
+  const login = () => {
+    console.log("login");
+  };
+
+  const handleCreateUser = (user) => {
+    fetch("http://localhost:3000/trackit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then((res) => res.json());
   };
 
   return (
@@ -13,9 +37,11 @@ const App = () => {
       <Navbar expand="lg" className="">
         <Container>
           <Navbar.Brand className="fw-bold fs-1">
-            <Link to="/" className="text-decoration-none text-black">
-              Trackit.
-            </Link>
+            {!isLoggedIn && (
+              <Link to="/" className="text-decoration-none text-black">
+                Trackit.
+              </Link>
+            )}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
@@ -23,15 +49,20 @@ const App = () => {
             className="justify-content-end"
           >
             <Nav className="d-flex gap-2">
-              <NavLink to="login">
-                <Button variant="outline-secondary">Sign In</Button>
-              </NavLink>
-              <NavLink to="register">
-                <Button variant="dark">Register</Button>
-              </NavLink>
-              <Button variant="secondary" onClick={logout}>
-                Logout
-              </Button>
+              {!isLoggedIn ? (
+                <>
+                  <NavLink to="login">
+                    <Button variant="outline-secondary">Sign In</Button>
+                  </NavLink>
+                  <NavLink to="register">
+                    <Button variant="dark">Register</Button>
+                  </NavLink>
+                </>
+              ) : (
+                <Button variant="secondary" onClick={logout}>
+                  Logout
+                </Button>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -40,7 +71,14 @@ const App = () => {
         className="bg-secondary flex-grow-1"
         style={{ "--bs-bg-opacity": 0.1 }}
       >
-        <Outlet />
+        <Outlet
+          context={{
+            isLoggedIn,
+            setIsLoggedIn,
+            users,
+            onCreateUser: handleCreateUser,
+          }}
+        />
       </div>
     </div>
   );
