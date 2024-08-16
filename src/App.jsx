@@ -7,7 +7,7 @@ import { Button, Container, Nav, Navbar } from "./components";
 const App = () => {
   const [userList, setUserList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState({});
+  const [currentUserId, setCurrentUserId] = useState();
 
   useEffect(() => {
     fetch("http://localhost:3000/trackit")
@@ -15,11 +15,8 @@ const App = () => {
       .then(setUserList);
   }, []);
   const logout = () => {
-    console.log("logout");
-  };
-
-  const login = () => {
-    console.log("login");
+    setCurrentUserId(null);
+    setIsLoggedIn(false);
   };
 
   const handleCreateUser = (user) => {
@@ -50,7 +47,7 @@ const App = () => {
       <Navbar expand="lg" className="">
         <Container>
           <Navbar.Brand className="fw-bold fs-1">
-            {!isLoggedIn && (
+            {isLoggedIn && (
               <Link to="/" className="text-decoration-none text-black">
                 Trackit.
               </Link>
