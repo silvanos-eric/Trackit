@@ -8,7 +8,7 @@
       "balance": 999,
       "expenses": [
         {
-          "name": "",
+          "name": "learning",
           "amount": 23
         }
       ]
@@ -26,7 +26,12 @@
       "email": "test@gmail.com",
       "password": "test",
       "balance": 0,
-      "expenses": [],
+      "expenses": [
+        {
+          "name": "test",
+          "amount": 0
+        }
+      ],
       "id": 3
     }
   ]

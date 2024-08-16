@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import "./App.css";
@@ -8,16 +8,13 @@ const App = () => {
   const [userList, setUserList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserId, setCurrentUserId] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/trackit")
       .then((res) => res.json())
       .then(setUserList);
   }, []);
-  const logout = () => {
-    setCurrentUserId(null);
-    setIsLoggedIn(false);
-  };
 
   const handleCreateUser = (user) => {
     fetch("http://localhost:3000/trackit", {
@@ -40,6 +37,17 @@ const App = () => {
   const handleLogin = (id) => {
     setCurrentUserId(id);
     setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setCurrentUserId(null);
+    setIsLoggedIn(false);
+  };
+
+  const logout = () => {
+    navigate("/");
+    setIsLoggedIn(false);
+    setCurrentUserId(null);
   };
 
   return (
@@ -83,11 +91,11 @@ const App = () => {
       >
         <Outlet
           context={{
-            isLoggedIn,
-            setIsLoggedIn,
             userList,
+            currentUserId,
             onCreateUser: handleCreateUser,
             onLogin: handleLogin,
+            onLogout: handleLogout,
           }}
         />
       </div>
