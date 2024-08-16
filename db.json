@@ -10,6 +10,18 @@
         {
           "name": "learning",
           "amount": 23
+        },
+        {
+          "name": "transport",
+          "amount": 300
+        },
+        {
+          "name": "food",
+          "amount": 150
+        },
+        {
+          "name": "sleep",
+          "amount": 1000
         }
       ]
     },
