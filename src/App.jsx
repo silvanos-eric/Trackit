@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link, NavLink, Outlet } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
+import { Button, Container, Nav, Navbar } from "./components";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const App = () => (
+  <div className="d-flex flex-column h-100">
+    <header>
+      <Navbar expand="lg" className="">
+        <Container>
+          <Navbar.Brand className="fw-bold fs-1">
+            <Link to="/" className="text-decoration-none text-black">
+              Trackit.
+            </Link>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav className="d-flex gap-2">
+              <NavLink to="login">
+                <Button variant="outline-secondary">Sign In</Button>
+              </NavLink>
+              <NavLink to="register">
+                <Button variant="dark">Register</Button>
+              </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
+    <main
+      className="bg-secondary flex-grow-1"
+      style={{ "--bs-bg-opacity": 0.1 }}
+    >
+      <Outlet />
+    </main>
+  </div>
+);
 
-export default App
+export { App };
