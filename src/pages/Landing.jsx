@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+
 import landingPageBgImage from "../assets/landing-page-bg-image.png";
+import { Image } from "../components";
 
 const Landing = () => (
   <>
@@ -16,7 +18,7 @@ const Landing = () => (
           Get Started
         </button>
       </Link>
-      <img src={landingPageBgImage} alt="" className="d-block mx-auto mt-4" />
+      <Image src={landingPageBgImage} alt="" className="d-block mx-auto mt-4" />
     </main>
   </>
 );
