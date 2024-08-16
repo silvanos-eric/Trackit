@@ -41,7 +41,17 @@ const Home = () => {
         </section>
         <section>
           <h2 className="mt-5 fw-bold">Expense List</h2>
-          <ListGroup style={{ maxWidth: 300 }} className="mx-auto">
+          <Button
+            className="mt-2"
+            style={{
+              minWidth: 150,
+              backgroundColor: "#FE6D00",
+              border: "#FE6D00",
+            }}
+          >
+            Add Expense
+          </Button>
+          <ListGroup style={{ maxWidth: 300 }} className="mx-auto mt-4">
             <ListGroup.Item className="d-flex align-items-center justify-content-between">
               <p className="m-0">An Item</p>
               <Badge bg="dark">23</Badge>
