@@ -7,6 +7,7 @@ import { Button, Container, Nav, Navbar } from "./components";
 const App = () => {
   const [users, setUsers] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:3000/trackit")
@@ -29,7 +30,14 @@ const App = () => {
         Accept: "application/json",
       },
       body: JSON.stringify(user),
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then((data) =>
+        setUsers((users) => ({
+          ...users,
+          data,
+        }))
+      );
   };
 
   return (
