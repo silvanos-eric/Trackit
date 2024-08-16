@@ -15,11 +15,19 @@
     },
     {
       "name": "admin",
-      "email": "admin@tracit.com",
+      "email": "admin@trackit.com",
       "password": "admin",
       "balance": 0,
       "expenses": [],
       "id": 2
+    },
+    {
+      "name": "test",
+      "email": "test@gmail.com",
+      "password": "test",
+      "balance": 0,
+      "expenses": [],
+      "id": 3
     }
   ]
 }

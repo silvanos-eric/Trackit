@@ -4,7 +4,7 @@ import { Button, Form } from "../components";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
-  const { users, onCreateUser } = useOutletContext();
+  const { userList, onCreateUser } = useOutletContext();
 
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   const checkIfUserExists = (email) => {
-    for (const user of users) {
+    for (const user of userList) {
       if (user.email === email) {
         return true;
       } else {

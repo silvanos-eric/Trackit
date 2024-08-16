@@ -1,13 +1,33 @@
 import { useState } from "react";
 
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { Button, Form } from "../components";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
+  const { userList, onLogin } = useOutletContext();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+
+    const exists = checkIfUserExists(formData.email);
+    if (!exists) {
+      console.log(`User with email address ${formData.email} does not exist!`);
+      return;
+    }
+
+    const validUser = validateUser(formData);
+    if (!validUser) {
+      console.log(`Invalid credentials`);
+      return;
+    }
+
+    const { id } = userList.find((user) => user.email === formData.email);
+
+    onLogin(id);
+
+    navigate("/home");
   };
 
   const handleChange = (event) => {
@@ -17,6 +37,20 @@ const Login = () => {
       ...formData,
       [name]: value,
     }));
+  };
+
+  const checkIfUserExists = (email) => {
+    const user = userList.find((user) => user.email === email);
+
+    if (user) return true;
+    return false;
+  };
+
+  const validateUser = ({ email, password }) => {
+    const user = userList.find((user) => user.email === email);
+
+    if (user.password === password) return true;
+    return false;
   };
 
   return (
@@ -34,6 +68,7 @@ const Login = () => {
               type="text"
               placeholder="email"
               onChange={handleChange}
+              name="email"
             />
           </Form.Group>
           <Form.Group>
@@ -43,6 +78,7 @@ const Login = () => {
               type="password"
               placeholder="password"
               onChange={handleChange}
+              name="password"
             />
           </Form.Group>
           <Button type="submit" variant="dark" className="w-100">

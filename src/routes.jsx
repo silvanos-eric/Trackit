@@ -12,7 +12,7 @@ const routes = [
         element: <Landing />,
       },
       {
-        path: "/home/:id",
+        path: "/home",
         element: <Home />,
       },
       {

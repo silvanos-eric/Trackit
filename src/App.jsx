@@ -5,14 +5,14 @@ import "./App.css";
 import { Button, Container, Nav, Navbar } from "./components";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUserId, setCurrentUserId] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:3000/trackit")
       .then((res) => res.json())
-      .then(setUsers);
+      .then(setUserList);
   }, []);
   const logout = () => {
     console.log("logout");
@@ -33,11 +33,16 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((data) =>
-        setUsers((users) => ({
+        setUserList((users) => ({
           ...users,
           data,
         }))
       );
+  };
+
+  const handleLogin = (id) => {
+    setCurrentUserId(id);
+    setIsLoggedIn(true);
   };
 
   return (
@@ -83,8 +88,9 @@ const App = () => {
           context={{
             isLoggedIn,
             setIsLoggedIn,
-            users,
+            userList,
             onCreateUser: handleCreateUser,
+            onLogin: handleLogin,
           }}
         />
       </div>
