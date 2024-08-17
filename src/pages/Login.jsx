@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 import { Button, Form } from "../components";
 
@@ -95,7 +94,6 @@ const Login = () => {
           </Button>
         </Form>
       </main>
-      <ToastContainer />
     </>
   );
 };

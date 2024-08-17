@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 import { Button, Container, Nav, Navbar } from "./components";
 
@@ -52,11 +52,11 @@ const App = () => {
     setCurrentUserId(null);
   };
 
-  const notifySuccess = (message) => toast(toast.success(message), {});
+  const notifySuccess = (message) => toast(toast.success(message));
 
-  const notifyError = (message) => toast(toast.error(message), {});
+  const notifyError = (message) => toast(toast.error(message));
 
-  const notifyInfo = (message) => toast(toast.info(message), {});
+  const notifyInfo = (message) => toast(toast.info(message));
 
   const handleUpdateUser = (user) => {
     fetch(`${API_URL}/${user.id}`, {
@@ -77,60 +77,63 @@ const App = () => {
   };
 
   return (
-    <div className="d-flex flex-column h-100">
-      <Navbar expand="lg" className="">
-        <Container>
-          <Navbar.Brand className="fw-bold fs-1">
-            <Link
-              to={isLoggedIn ? "/home" : "/"}
-              className="text-decoration-none text-black"
+    <>
+      <div className="d-flex flex-column h-100">
+        <Navbar expand="lg" className="">
+          <Container>
+            <Navbar.Brand className="fw-bold fs-1">
+              <Link
+                to={isLoggedIn ? "/home" : "/"}
+                className="text-decoration-none text-black"
+              >
+                Trackit.
+              </Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse
+              id="basic-navbar-nav"
+              className="justify-content-end"
             >
-              Trackit.
-            </Link>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse
-            id="basic-navbar-nav"
-            className="justify-content-end"
-          >
-            <Nav className="d-flex gap-2">
-              {!isLoggedIn ? (
-                <>
-                  <NavLink to="login">
-                    <Button variant="outline-secondary">Sign In</Button>
-                  </NavLink>
-                  <NavLink to="register">
-                    <Button variant="dark">Register</Button>
-                  </NavLink>
-                </>
-              ) : (
-                <Button variant="secondary" onClick={logout}>
-                  Logout
-                </Button>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <div
-        className="bg-secondary flex-grow-1"
-        style={{ "--bs-bg-opacity": 0.1 }}
-      >
-        <Outlet
-          context={{
-            userList,
-            currentUserId,
-            onCreateUser: handleCreateUser,
-            onLogin: handleLogin,
-            onLogout: handleLogout,
-            notifyError,
-            notifyInfo,
-            notifySuccess,
-            onUpdateUser: handleUpdateUser,
-          }}
-        />
+              <Nav className="d-flex gap-2">
+                {!isLoggedIn ? (
+                  <>
+                    <NavLink to="login">
+                      <Button variant="outline-secondary">Sign In</Button>
+                    </NavLink>
+                    <NavLink to="register">
+                      <Button variant="dark">Register</Button>
+                    </NavLink>
+                  </>
+                ) : (
+                  <Button variant="secondary" onClick={logout}>
+                    Logout
+                  </Button>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <div
+          className="bg-secondary flex-grow-1"
+          style={{ "--bs-bg-opacity": 0.1 }}
+        >
+          <Outlet
+            context={{
+              userList,
+              currentUserId,
+              onCreateUser: handleCreateUser,
+              onLogin: handleLogin,
+              onLogout: handleLogout,
+              notifyError,
+              notifyInfo,
+              notifySuccess,
+              onUpdateUser: handleUpdateUser,
+            }}
+          />
+        </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 };
 

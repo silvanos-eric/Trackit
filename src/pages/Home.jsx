@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 import eyeCloseIcon from "../assets/eye-close.svg";
 import eyeOpenIcon from "../assets/eye-open.svg";
@@ -168,7 +167,6 @@ const Home = () => {
         onDelete={handleDeleteExpense}
         expense={selectedExpense}
       />
-      <ToastContainer />
     </>
   );
 };
