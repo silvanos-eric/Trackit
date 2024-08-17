@@ -46,9 +46,15 @@ const Register = () => {
     return false;
   };
 
-  const notifySuccess = (message) => toast(toast.success(message));
+  const notifySuccess = (message) =>
+    toast(toast.success(message), {
+      position: "top-center",
+    });
 
-  const notifyError = (message) => toast(toast.error(message));
+  const notifyError = (message) =>
+    toast(toast.error(message), {
+      position: "top-center",
+    });
 
   return (
     <>
