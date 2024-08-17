@@ -7,6 +7,8 @@ import { Button, Container, Nav, Navbar } from "./components";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
+const API_URL = "http://localhost:3000/trackit";
+
 const App = () => {
   const [userList, setUserList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,13 +16,13 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/trackit")
+    fetch(API_URL)
       .then((res) => res.json())
       .then(setUserList);
   }, []);
 
   const handleCreateUser = (user) => {
-    fetch("http://localhost:3000/trackit", {
+    fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
