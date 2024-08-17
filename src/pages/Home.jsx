@@ -8,15 +8,19 @@ import {
   AddExpenseModal,
   Badge,
   Button,
+  EditDeleteExpenseModal,
   Image,
   ListGroup,
   UpdateBalanceModal,
 } from "../components";
+import "./Home.css";
 
 const Home = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [showUpdateBalanceModal, setShowUpdateBalanceModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState({});
   const { userList, currentUserId, onUpdateUser, notifyError, notifySuccess } =
     useOutletContext();
 
@@ -52,6 +56,22 @@ const Home = () => {
     onUpdateUser(updatedUser);
     notifySuccess("Expense Added Successfully");
     setShowAddExpenseModal(false);
+  };
+
+  const handleEditExpense = (updatedExpense) => {
+    const newExpenseList = user.expenses.map((e) =>
+      e.name === updatedExpense.name ? updatedExpense : e
+    );
+    console.log(newExpenseList);
+
+    const updatedUser = { ...user, expenses: [...newExpenseList] };
+    onUpdateUser(updatedUser);
+    notifySuccess("Updated Expsense Successfully");
+    setShowEditDeleteModal(false);
+  };
+
+  const handleDeleteExpense = () => {
+    console.log("Delete", selectedExpense);
   };
 
   return (
@@ -103,9 +123,14 @@ const Home = () => {
               user.expenses.map((expense) => (
                 <ListGroup.Item
                   key={expense.name}
-                  className={`d-flex align-items-center justify-content-between ${
+                  className={`d-flex align-items-center justify-content-between warning-hover ${
                     !showInfo && "blur"
                   }`}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setShowEditDeleteModal(true);
+                    setSelectedExpense(expense);
+                  }}
                 >
                   <p className="m-0">{expense.name}</p>
                   <Badge bg="dark">{expense.amount}</Badge>
@@ -125,6 +150,13 @@ const Home = () => {
         show={showAddExpenseModal}
         onHide={() => setShowAddExpenseModal(false)}
         onSave={handleAddExpense}
+      />
+      <EditDeleteExpenseModal
+        show={showEditDeleteModal}
+        onHide={() => setShowEditDeleteModal(false)}
+        onSave={handleEditExpense}
+        onDelete={handleDeleteExpense}
+        expense={selectedExpense}
       />
       <ToastContainer />
     </>
