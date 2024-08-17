@@ -60,7 +60,6 @@ const Home = () => {
 
   const handleEditExpense = (newAmount) => {
     const updatedExpense = { ...selectedExpense, amount: newAmount };
-    console.log(updatedExpense);
 
     const newExpenseList = user.expenses.map((e) =>
       e.name.toLowerCase() === updatedExpense.name.toLowerCase()
@@ -69,7 +68,6 @@ const Home = () => {
     );
 
     const updatedUser = { ...user, expenses: [...newExpenseList] };
-    console.log(updatedUser);
     onUpdateUser(updatedUser);
     notifySuccess("Updated Expsense Successfully.");
     setShowEditDeleteModal(false);
