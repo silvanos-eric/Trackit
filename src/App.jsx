@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
-import { useEffect, useState } from "react";
-import "./App.css";
 import { Button, Container, Nav, Navbar } from "./components";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const App = () => {
   const [userList, setUserList] = useState([]);
@@ -26,12 +28,7 @@ const App = () => {
       body: JSON.stringify(user),
     })
       .then((res) => res.json())
-      .then((data) =>
-        setUserList((users) => ({
-          ...users,
-          data,
-        }))
-      );
+      .then((data) => setUserList((users) => [...users, data]));
   };
 
   const handleLogin = (id) => {
@@ -55,11 +52,12 @@ const App = () => {
       <Navbar expand="lg" className="">
         <Container>
           <Navbar.Brand className="fw-bold fs-1">
-            {isLoggedIn && (
-              <Link to="/" className="text-decoration-none text-black">
-                Trackit.
-              </Link>
-            )}
+            <Link
+              to={isLoggedIn ? "/home" : "/"}
+              className="text-decoration-none text-black"
+            >
+              Trackit.
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse

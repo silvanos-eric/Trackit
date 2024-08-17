@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 import { Button, Form } from "../components";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { userList, onCreateUser } = useOutletContext();
 
   const navigate = useNavigate();
@@ -22,82 +25,91 @@ const Register = () => {
 
     const exists = checkIfUserExists(formData.email);
     if (exists) {
-      // Show Error message
-      console.log("Eamil already taken. Please try another.");
+      notifyError("Email already taken. Please try another.");
     } else {
       const user = {
         ...formData,
         balance: 0,
         expenses: [],
       };
+      setIsLoading(true);
       onCreateUser(user);
-
+      notifySuccess("Account Creation Successful!");
+      setIsLoading(false);
       navigate("/login");
     }
   };
 
   const checkIfUserExists = (email) => {
-    for (const user of userList) {
-      if (user.email === email) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    const user = userList.find((user) => user.email === email);
+    if (user) return true;
+    return false;
   };
 
+  const notifySuccess = (message) => toast(toast.success(message));
+
+  const notifyError = (message) => toast(toast.error(message));
+
   return (
-    <main className="container h-100 d-flex flex-column justify-content-center">
-      <Form
-        onSubmit={handleSubmit}
-        style={{ minWidth: 560 }}
-        className="mx-auto bg-white p-4 d-flex flex-column gap-4"
-      >
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="name"
-            name="name"
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            required
-            type="email"
-            placeholder="email"
-            name="email"
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            required
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Button type="submit" variant="dark" className="w-100">
-          Register
-        </Button>
-        <p className="d-flex gap-2">
-          Alreay have an account?{" "}
-          <Link
-            className="text-decoration-none"
-            style={{ color: "#FE6D00", border: "none" }}
-            to="/login"
+    <>
+      <main className="container h-100 d-flex flex-column justify-content-center">
+        <Form
+          onSubmit={handleSubmit}
+          style={{ minWidth: 560 }}
+          className="mx-auto bg-white p-4 d-flex flex-column gap-4"
+        >
+          <Form.Group>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="name"
+              name="name"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              required
+              type="email"
+              placeholder="email"
+              name="email"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              required
+              type="password"
+              placeholder="password"
+              name="password"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Button
+            type="submit"
+            variant="dark"
+            className="w-100"
+            disabled={isLoading}
           >
-            Sign in
-          </Link>
-        </p>
-      </Form>
-    </main>
+            {isLoading ? "Loading..." : "Register"}
+          </Button>
+          <p className="d-flex gap-2">
+            Alreay have an account?{" "}
+            <Link
+              className="text-decoration-none"
+              style={{ color: "#FE6D00", border: "none" }}
+              to="/login"
+            >
+              Sign in
+            </Link>
+          </p>
+        </Form>
+      </main>
+      <ToastContainer />
+    </>
   );
 };
 

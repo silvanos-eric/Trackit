@@ -1,17 +1,15 @@
 import { useState } from "react";
 
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import eyeCloseIcon from "../assets/eye-close.svg";
 import eyeOpenIcon from "../assets/eye-open.svg";
 import { Badge, Button, Image, ListGroup } from "../components";
 
 const Home = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const { userList, currentUserId, onLogout } = useOutletContext();
+  const { userList, currentUserId } = useOutletContext();
 
   const user = userList.find((user) => user.id === currentUserId);
-
-  const navigate = useNavigate();
 
   const toggleInfo = () => setShowInfo(!showInfo);
   const updateBalance = () => {

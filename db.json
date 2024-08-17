@@ -45,6 +45,38 @@
         }
       ],
       "id": 3
+    },
+    {
+      "name": "Eric",
+      "email": "eric@email.com",
+      "password": "eric",
+      "balance": 0,
+      "expenses": [],
+      "id": 4
+    },
+    {
+      "name": "test-1",
+      "email": "test-1@gmail.com",
+      "password": "test",
+      "balance": 0,
+      "expenses": [],
+      "id": 5
+    },
+    {
+      "name": "eric",
+      "email": "eric@gmail.com",
+      "password": "eric",
+      "balance": 0,
+      "expenses": [],
+      "id": 6
+    },
+    {
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "balance": 0,
+      "expenses": [],
+      "id": 7
     }
   ]
 }
