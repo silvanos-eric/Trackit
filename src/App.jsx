@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { Button, Container, Nav, Navbar } from "./components";
 
@@ -41,15 +41,11 @@ const App = () => {
     notifySuccess("Login Successful");
   };
 
-  const handleLogout = () => {
-    setCurrentUserId(null);
-    setIsLoggedIn(false);
-  };
-
   const logout = () => {
     navigate("/");
     setIsLoggedIn(false);
     setCurrentUserId(null);
+    notifyInfo("Log out successful");
   };
 
   const notifySuccess = (message) => toast(toast.success(message));
@@ -123,7 +119,6 @@ const App = () => {
               currentUserId,
               onCreateUser: handleCreateUser,
               onLogin: handleLogin,
-              onLogout: handleLogout,
               notifyError,
               notifyInfo,
               notifySuccess,
@@ -132,7 +127,6 @@ const App = () => {
           />
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };
