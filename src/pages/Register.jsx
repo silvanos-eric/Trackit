@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
 import { Button, Form } from "../components";
 
 const Register = () => {
@@ -101,6 +102,7 @@ const Register = () => {
             </Link>
           </p>
         </Form>
+        <ToastContainer />
       </main>
     </>
   );
