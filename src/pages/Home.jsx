@@ -29,19 +29,22 @@ const Home = () => {
       </header>
       <main className="text-center mt-5">
         <section>
-          <p className="fs-2 fw-bold">
-            Current Balance: {user.balance}{" "}
-            <Button
-              style={{ backgroundColor: "transparent", border: "none" }}
-              onClick={toggleInfo}
-            >
-              <Image src={showInfo ? eyeCloseIcon : eyeOpenIcon} />
-            </Button>
+          <p className="fs-2 fw-bold d-inline m-0">
+            Current Balance:{" "}
+            <span className={`${!showInfo && "blur"}`}>{user.balance}</span>{" "}
           </p>
+          <Button
+            style={{ backgroundColor: "transparent", border: "none" }}
+            onClick={toggleInfo}
+          >
+            <Image src={showInfo ? eyeCloseIcon : eyeOpenIcon} />
+          </Button>
           <Button
             variant="dark"
             style={{ minWidth: 200 }}
             onClick={updateBalance}
+            className="d-block mx-auto"
+            disabled={!showInfo}
           >
             Update Balance
           </Button>
@@ -56,6 +59,7 @@ const Home = () => {
               border: "#FE6D00",
             }}
             onClick={addExpense}
+            disabled={!showInfo}
           >
             Add Expense
           </Button>
@@ -64,7 +68,9 @@ const Home = () => {
               user.expenses.map((expense) => (
                 <ListGroup.Item
                   key={expense.name}
-                  className="d-flex align-items-center justify-content-between"
+                  className={`d-flex align-items-center justify-content-between ${
+                    !showInfo && "blur"
+                  }`}
                 >
                   <p className="m-0">{expense.name}</p>
                   <Badge bg="dark">{expense.amount}</Badge>

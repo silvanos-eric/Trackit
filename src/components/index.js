@@ -1,3 +1,4 @@
+// Bootstrap Components
 export {
   Badge,
   Button,
@@ -8,3 +9,8 @@ export {
   Nav,
   Navbar,
 } from "react-bootstrap";
+
+// Custom Components
+export { AddExpenseModal } from "./AddExpenseModal";
+export { EditDeleteExpenseModal } from "./EditDeleteExpenseModal";
+export { UpdateBalanceModal } from "./UpdateBalanceModal";

@@ -27,7 +27,9 @@ const Login = () => {
 
     const { id } = userList.find((user) => user.email === formData.email);
 
+    setIsLoading(true);
     onLogin(id);
+    setIsLoading(false);
 
     navigate("/home");
   };
@@ -83,8 +85,13 @@ const Login = () => {
               name="password"
             />
           </Form.Group>
-          <Button type="submit" variant="dark" className="w-100">
-            Sign In
+          <Button
+            type="submit"
+            variant="dark"
+            className="w-100"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Sign in"}
           </Button>
         </Form>
       </main>

@@ -3,3 +3,7 @@ body,
 #root {
   height: 100%;
 }
+
+.blur {
+  filter: blur(0.45rem);
+}

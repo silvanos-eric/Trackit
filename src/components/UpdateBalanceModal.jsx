@@ -1,0 +1,3 @@
+const UpdateBalanceModal = () => {};
+
+export { UpdateBalanceModal };
