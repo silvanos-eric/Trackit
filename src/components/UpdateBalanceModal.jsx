@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+
 import { Button, Form, Modal } from ".";
 
 const UpdateBalanceModal = ({ onHide, onSave, balance, ...rest }) => {
@@ -50,12 +51,12 @@ const UpdateBalanceModal = ({ onHide, onSave, balance, ...rest }) => {
                 onChange={handleChange}
                 name="balance"
               />
-              <Button
-                ref={submitBtnRef}
-                type="submit"
-                className="visually-hidden"
-              ></Button>
             </Form.Group>
+            <Button
+              ref={submitBtnRef}
+              type="submit"
+              className="visually-hidden"
+            ></Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>

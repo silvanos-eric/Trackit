@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 import { useOutletContext } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import eyeCloseIcon from "../assets/eye-close.svg";
 import eyeOpenIcon from "../assets/eye-open.svg";
 import {
+  AddExpenseModal,
   Badge,
   Button,
   Image,
@@ -14,7 +16,9 @@ import {
 const Home = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [showUpdateBalanceModal, setShowUpdateBalanceModal] = useState(false);
-  const { userList, currentUserId, onUpdateUser } = useOutletContext();
+  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
+  const { userList, currentUserId, onUpdateUser, notifyError } =
+    useOutletContext();
 
   const user = userList.find((user) => user.id === currentUserId);
 
@@ -23,13 +27,29 @@ const Home = () => {
     setShowUpdateBalanceModal(true);
   };
   const addExpense = () => {
-    console.log("add expense");
+    setShowAddExpenseModal(true);
   };
 
-  const handleSave = (newInfo) => {
-    const updatedUser = { ...user, ...newInfo };
+  const handleUpdateBalance = (newBalance) => {
+    const updatedUser = { ...user, ...newBalance };
     onUpdateUser(updatedUser);
     setShowUpdateBalanceModal(false);
+  };
+
+  const handleAddExpense = (newExpense) => {
+    if (
+      user.expenses.find(
+        (e) => e.name.toLowerCase() === newExpense.name.toLowerCase()
+      )
+    ) {
+      notifyError("Expense Already Exists!");
+      return;
+    }
+    const newExpenseList = [...user.expenses, newExpense];
+    const updatedUser = { ...user, expenses: [...newExpenseList] };
+
+    onUpdateUser(updatedUser);
+    setShowAddExpenseModal(false);
   };
 
   return (
@@ -97,8 +117,14 @@ const Home = () => {
         show={showUpdateBalanceModal}
         balance={user.balance}
         onHide={() => setShowUpdateBalanceModal(false)}
-        onSave={handleSave}
+        onSave={handleUpdateBalance}
       />
+      <AddExpenseModal
+        show={showAddExpenseModal}
+        onHide={() => setShowAddExpenseModal(false)}
+        onSave={handleAddExpense}
+      />
+      <ToastContainer />
     </>
   );
 };
