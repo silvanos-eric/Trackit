@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 import { Button, Container, Nav, Navbar } from "./components";
 
@@ -58,6 +58,25 @@ const App = () => {
 
   const notifyInfo = (message) => toast(toast.info(message), {});
 
+  const handleUpdateUser = (user) => {
+    fetch(`${API_URL}/${user.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((updatedUser) =>
+        setUserList((prevUserList) =>
+          prevUserList.map((u) => (u.id === user.id ? updatedUser : u))
+        )
+      )
+      .then(() => notifySuccess("Successfully updated"))
+      .catch(() => notifyError("Failed to update"));
+  };
+
   return (
     <div className="d-flex flex-column h-100">
       <Navbar expand="lg" className="">
@@ -108,9 +127,11 @@ const App = () => {
             notifyError,
             notifyInfo,
             notifySuccess,
+            onUpdateUser: handleUpdateUser,
           }}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };

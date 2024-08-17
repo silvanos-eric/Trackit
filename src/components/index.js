@@ -6,6 +6,7 @@ export {
   Form,
   Image,
   ListGroup,
+  Modal,
   Nav,
   Navbar,
 } from "react-bootstrap";

@@ -3,20 +3,33 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import eyeCloseIcon from "../assets/eye-close.svg";
 import eyeOpenIcon from "../assets/eye-open.svg";
-import { Badge, Button, Image, ListGroup } from "../components";
+import {
+  Badge,
+  Button,
+  Image,
+  ListGroup,
+  UpdateBalanceModal,
+} from "../components";
 
 const Home = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const { userList, currentUserId } = useOutletContext();
+  const [showUpdateBalanceModal, setShowUpdateBalanceModal] = useState(false);
+  const { userList, currentUserId, onUpdateUser } = useOutletContext();
 
   const user = userList.find((user) => user.id === currentUserId);
 
   const toggleInfo = () => setShowInfo(!showInfo);
   const updateBalance = () => {
-    console.log("update balance");
+    setShowUpdateBalanceModal(true);
   };
   const addExpense = () => {
     console.log("add expense");
+  };
+
+  const handleSave = (newInfo) => {
+    const updatedUser = { ...user, ...newInfo };
+    onUpdateUser(updatedUser);
+    setShowUpdateBalanceModal(false);
   };
 
   return (
@@ -80,6 +93,12 @@ const Home = () => {
           </ListGroup>
         </section>
       </main>
+      <UpdateBalanceModal
+        show={showUpdateBalanceModal}
+        balance={user.balance}
+        onHide={() => setShowUpdateBalanceModal(false)}
+        onSave={handleSave}
+      />
     </>
   );
 };
