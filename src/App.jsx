@@ -7,7 +7,7 @@ import { Button, Container, Nav, Navbar } from "./components";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
-const API_URL = "http://localhost:3000/trackit";
+const API_URL = "https://json-server-vercel-three-pearl.vercel.app";
 
 const App = () => {
   const [userList, setUserList] = useState([]);
