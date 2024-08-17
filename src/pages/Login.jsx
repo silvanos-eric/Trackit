@@ -1,11 +1,13 @@
 import { useState } from "react";
-
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import { Button, Form } from "../components";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
-  const { userList, onLogin } = useOutletContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const { userList, onLogin, notifyError } = useOutletContext();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -13,13 +15,13 @@ const Login = () => {
 
     const exists = checkIfUserExists(formData.email);
     if (!exists) {
-      console.log(`User with email address ${formData.email} does not exist!`);
+      notifyError(`User with email address does not exist!`);
       return;
     }
 
     const validUser = validateUser(formData);
     if (!validUser) {
-      console.log(`Invalid credentials`);
+      notifyError(`Invalid credentials`);
       return;
     }
 
@@ -86,6 +88,7 @@ const Login = () => {
           </Button>
         </Form>
       </main>
+      <ToastContainer />
     </>
   );
 };

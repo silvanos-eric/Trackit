@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Button, Container, Nav, Navbar } from "./components";
 
@@ -28,12 +29,14 @@ const App = () => {
       body: JSON.stringify(user),
     })
       .then((res) => res.json())
-      .then((data) => setUserList((users) => [...users, data]));
+      .then((data) => setUserList((users) => [...users, data]))
+      .then(() => notifySuccess("Account Created Successfully!"));
   };
 
   const handleLogin = (id) => {
     setCurrentUserId(id);
     setIsLoggedIn(true);
+    notifySuccess("Login Successful");
   };
 
   const handleLogout = () => {
@@ -46,6 +49,12 @@ const App = () => {
     setIsLoggedIn(false);
     setCurrentUserId(null);
   };
+
+  const notifySuccess = (message) => toast(toast.success(message), {});
+
+  const notifyError = (message) => toast(toast.error(message), {});
+
+  const notifyInfo = (message) => toast(toast.info(message), {});
 
   return (
     <div className="d-flex flex-column h-100">
@@ -94,6 +103,9 @@ const App = () => {
             onCreateUser: handleCreateUser,
             onLogin: handleLogin,
             onLogout: handleLogout,
+            notifyError,
+            notifyInfo,
+            notifySuccess,
           }}
         />
       </div>

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 
 import { Button, Form } from "../components";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { userList, onCreateUser } = useOutletContext();
+  const { userList, onCreateUser, notifyError } = useOutletContext();
 
   const navigate = useNavigate();
 
@@ -34,7 +33,6 @@ const Register = () => {
       };
       setIsLoading(true);
       onCreateUser(user);
-      notifySuccess("Account Creation Successful!");
       setIsLoading(false);
       navigate("/login");
     }
@@ -45,16 +43,6 @@ const Register = () => {
     if (user) return true;
     return false;
   };
-
-  const notifySuccess = (message) =>
-    toast(toast.success(message), {
-      position: "top-center",
-    });
-
-  const notifyError = (message) =>
-    toast(toast.error(message), {
-      position: "top-center",
-    });
 
   return (
     <>
@@ -114,7 +102,6 @@ const Register = () => {
           </p>
         </Form>
       </main>
-      <ToastContainer />
     </>
   );
 };

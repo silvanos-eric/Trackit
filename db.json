@@ -77,6 +77,14 @@
       "balance": 0,
       "expenses": [],
       "id": 7
+    },
+    {
+      "name": "test-3",
+      "email": "test-3@gmail.com",
+      "password": "test-3",
+      "balance": 0,
+      "expenses": [],
+      "id": 8
     }
   ]
 }
