@@ -10,10 +10,7 @@ const EditDeleteExpenseModal = ({
   onDelete,
   ...rest
 }) => {
-  const [formData, setFormData] = useState({
-    name: expense?.name ?? "",
-    amount: expense?.amount ?? 0,
-  });
+  const [formData, setFormData] = useState({});
   const submitBtnRef = useRef(null);
 
   const handleChange = (event) => {
@@ -32,7 +29,7 @@ const EditDeleteExpenseModal = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSave(formData);
+    onSave(formData.amount);
   };
 
   return (
@@ -61,10 +58,6 @@ const EditDeleteExpenseModal = ({
           </Button>
         </ListGroup>
         <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" onChange={handleChange} name="name" />
-          </Form.Group>
           <Form.Group>
             <Form.Label>Amount</Form.Label>
             <Form.Control type="number" onChange={handleChange} name="amount" />

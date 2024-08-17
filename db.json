@@ -5,11 +5,11 @@
       "name": "Silvanos",
       "email": "ericoderito@gmail.com",
       "password": "superuser",
-      "balance": 999,
+      "balance": "500",
       "expenses": [
         {
           "name": "learning",
-          "amount": 23
+          "amount": "100"
         },
         {
           "name": "transport",
@@ -73,8 +73,8 @@
       "balance": "50",
       "expenses": [
         {
-          "name": "sleep",
-          "amount": "10"
+          "amount": "50",
+          "name": "sleep"
         }
       ],
       "id": 6
