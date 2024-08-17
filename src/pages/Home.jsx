@@ -66,12 +66,19 @@ const Home = () => {
 
     const updatedUser = { ...user, expenses: [...newExpenseList] };
     onUpdateUser(updatedUser);
-    notifySuccess("Updated Expsense Successfully");
+    notifySuccess("Updated Expsense Successfully.");
     setShowEditDeleteModal(false);
   };
 
   const handleDeleteExpense = () => {
-    console.log("Delete", selectedExpense);
+    const newExpenseList = user.expenses.filter(
+      (e) => e.name !== selectedExpense.name
+    );
+
+    const updatedUser = { ...user, expenses: [...newExpenseList] };
+    onUpdateUser(updatedUser);
+    notifySuccess("Deleted Expense Successfully.");
+    setShowEditDeleteModal(false);
   };
 
   return (

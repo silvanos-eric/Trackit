@@ -73,10 +73,6 @@
       "balance": "50",
       "expenses": [
         {
-          "name": "food",
-          "amount": "5"
-        },
-        {
           "name": "sleep",
           "amount": "10"
         }
