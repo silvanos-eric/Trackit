@@ -70,8 +70,17 @@
       "name": "Sleep",
       "email": "eric@gmail.com",
       "password": "eric",
-      "balance": "500",
-      "expenses": [],
+      "balance": "50",
+      "expenses": [
+        {
+          "name": "food",
+          "amount": "5"
+        },
+        {
+          "name": "sleep",
+          "amount": "50"
+        }
+      ],
       "id": 6,
       "amount": "500"
     },

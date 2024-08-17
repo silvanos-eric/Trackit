@@ -1,7 +1,7 @@
 import { useState } from "react";
-
 import { useOutletContext } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+
 import eyeCloseIcon from "../assets/eye-close.svg";
 import eyeOpenIcon from "../assets/eye-open.svg";
 import {
@@ -17,7 +17,7 @@ const Home = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [showUpdateBalanceModal, setShowUpdateBalanceModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
-  const { userList, currentUserId, onUpdateUser, notifyError } =
+  const { userList, currentUserId, onUpdateUser, notifyError, notifySuccess } =
     useOutletContext();
 
   const user = userList.find((user) => user.id === currentUserId);
@@ -34,6 +34,7 @@ const Home = () => {
     const updatedUser = { ...user, ...newBalance };
     onUpdateUser(updatedUser);
     setShowUpdateBalanceModal(false);
+    notifySuccess("Updated Balance Successfully.");
   };
 
   const handleAddExpense = (newExpense) => {
@@ -49,6 +50,7 @@ const Home = () => {
     const updatedUser = { ...user, expenses: [...newExpenseList] };
 
     onUpdateUser(updatedUser);
+    notifySuccess("Expense Added Successfully");
     setShowAddExpenseModal(false);
   };
 

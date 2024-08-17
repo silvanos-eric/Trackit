@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { Button, Container, Nav, Navbar } from "./components";
 
@@ -73,7 +73,6 @@ const App = () => {
           prevUserList.map((u) => (u.id === user.id ? updatedUser : u))
         )
       )
-      .then(() => notifySuccess("Successfully updated"))
       .catch(() => notifyError("Failed to update"));
   };
 
@@ -131,7 +130,6 @@ const App = () => {
           }}
         />
       </div>
-      <ToastContainer />
     </div>
   );
 };
